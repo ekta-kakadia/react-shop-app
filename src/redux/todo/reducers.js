@@ -6,7 +6,7 @@ const INIT_STATE = {
   users: [],
   error: "",
   notificationMsg: "",
-  details: {}
+  details: {},
 };
 
 export default (state = INIT_STATE, action) => {
@@ -112,7 +112,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         error: undefined,
-        notificationMsg: action.payload
+        notificationMsg: action.payload,
       };
 
     case "LOGIN_ERROR":
@@ -139,45 +139,63 @@ export default (state = INIT_STATE, action) => {
         ...state,
         error: action.payload.message,
       };
-    
-      case "FILTER_PRODUCTS":
-        return {
-          ...state,
-          error: undefined,
-        };
-  
-      case "FILTER_PRODUCTS_SUCCESS":
-        return {
-          ...state,
-          error: undefined,
-          todos: action.payload,
-        };
-  
-      case "FILTER_PRODUCTS_ERROR":
-        return {
-          ...state,
-          error: action.payload.message,
-        };
 
-        case "PRODUCTS_DETAILS":
-          return {
-            ...state,
-            error: undefined,
-          };
-    
-        case "PRODUCTS_DETAILS_SUCCESS":
-          return {
-            ...state,
-            error: undefined,
-            details: action.payload,
-          };
-    
-        case "PRODUCTS_DETAILS_ERROR":
-          return {
-            ...state,
-            error: action.payload.message,
-          };
-  
+    case "FILTER_PRODUCTS":
+      return {
+        ...state,
+        error: undefined,
+      };
+
+    case "FILTER_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        error: undefined,
+        todos: action.payload,
+      };
+
+    case "FILTER_PRODUCTS_ERROR":
+      return {
+        ...state,
+        error: action.payload.message,
+      };
+
+    case "PRODUCTS_DETAILS":
+      return {
+        ...state,
+        error: undefined,
+      };
+
+    case "PRODUCTS_DETAILS_SUCCESS":
+      return {
+        ...state,
+        error: undefined,
+        details: action.payload,
+      };
+
+    case "PRODUCTS_DETAILS_ERROR":
+      return {
+        ...state,
+        error: action.payload.message,
+      };
+
+    case "ADD_PRODUCTS":
+      return {
+        ...state,
+        error: undefined,
+      };
+
+    case "ADD_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        error: undefined,
+      };
+
+    case "ADD_PRODUCTS_ERROR":
+      return {
+        ...state,
+        error: action.payload.message,
+      };
+
     default:
       return { ...state };
   }

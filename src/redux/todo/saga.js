@@ -18,7 +18,9 @@ import {
   filterProductsSuccess,
   filterProductsError,
   productsDetailsSuccess,
-  productsDetailsError
+  productsDetailsError,
+  addProductError,
+  addProductSuccess
 } from "./actions";
 
 import axios from "axios";
@@ -274,6 +276,31 @@ function* productsDetails({payload}) {
   }
 }
 
+export function* watchAddProduct() {
+  yield takeEvery("ADD_PRODUCTS", addProduct);
+}
+
+const addProductsAsync = async (payload) => {
+  return await api
+    .post(`/products`)
+    .then((user) => user)
+    .catch((error) => error);
+};
+
+function* addProduct({payload}) {
+  try {
+    const todos = yield call(addProductsAsync, payload);
+    if (todos) {
+      yield put(addProductSuccess(todos));
+    } else {
+      yield put(addProductError(todos));
+    }
+  } catch (error) {
+    yield put(addProductError(error));
+    return error;
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     fork(watchGetTodoList),
@@ -285,5 +312,6 @@ export default function* rootSaga() {
     fork(watchListUsers),
     fork(watchFilterProducts),
     fork(watchProductsDetails),
+    fork(watchAddProduct),
   ]);
 }

@@ -1,10 +1,13 @@
 import { Modal, Form, Input } from "antd";
 import { connect } from "react-redux";
+import { addProduct, getProduct } from "../redux/todo/actions";
+import { useHistory } from "react-router";
 
-const AddProduct = ({ setIsModalVisible, isModalVisible }) => {
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+const AddProduct = ({ setIsModalVisible, isModalVisible, addProductAction, getProductAction }) => {
+
+  const history = useHistory();
+
+  const [form] = Form.useForm();
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -12,7 +15,9 @@ const AddProduct = ({ setIsModalVisible, isModalVisible }) => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    // loginAction(values);
+    addProductAction(values);
+    getProductAction();
+    setIsModalVisible(false);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -23,10 +28,11 @@ const AddProduct = ({ setIsModalVisible, isModalVisible }) => {
     <Modal
       title="Add Product"
       visible={isModalVisible}
-      onOk={handleOk}
+      onOk={form.submit}
       onCancel={handleCancel}
     >
       <Form
+        form={form}
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -85,4 +91,7 @@ const mapStateToProps = (state) => {
     category,
   };
 };
-export default connect(mapStateToProps, {})(AddProduct);
+export default connect(mapStateToProps, {
+  addProductAction: addProduct,
+  getProductAction: getProduct
+})(AddProduct);

@@ -132,3 +132,18 @@ export const productsDetailsError = (message) => ({
   type: "PRODUCTS_DETAILS_ERROR",
   payload: { message },
 });
+
+export const addProduct = (data) => ({
+  type: "ADD_PRODUCTS",
+  payload: data,
+});
+
+export const addProductSuccess = (category) => ({
+  type: "ADD_PRODUCTS_SUCCESS",
+  payload: category,
+});
+
+export const addProductError = (message) => ({
+  type: "ADD_PRODUCTS_ERROR",
+  payload: { message },
+});
